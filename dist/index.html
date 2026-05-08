@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline AI Traffic Light Control</title>
+    <script type="module" crossorigin src="/assets/index-CmoFPVHb.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BonhH6_N.css">
+  </head>
+  <body>
+    <div id="app">
+      <main class="layout">
+        <section class="panel map-panel">
+          <header class="panel-header">
+            <div>
+              <h1>Traffic Simulation Map</h1>
+              <p class="subtext">Offline intelligent traffic control demo</p>
+            </div>
+            <div class="controls" aria-label="Simulation controls">
+              <div class="speed-dropdown" id="speedDropdown">
+                <button id="speedDropdownBtn" class="btn speed-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  Speed: 1x
+                </button>
+                <div id="speedMenu" class="speed-menu" role="listbox" aria-label="Simulation speed">
+                  <button type="button" class="speed-option active" data-speed="1">1x</button>
+                  <button type="button" class="speed-option" data-speed="2">2x</button>
+                  <button type="button" class="speed-option" data-speed="5">5x</button>
+                  <button type="button" class="speed-option" data-speed="10">10x</button>
+                </div>
+              </div>
+              <button id="startBtn" class="btn btn-start">Start</button>
+              <button id="stopBtn" class="btn btn-stop">Stop</button>
+              <button id="resetBtn" class="btn btn-reset">Reset</button>
+              <button id="emergencyBtn" class="btn btn-emergency">Emergency</button>
+            </div>
+          </header>
+          <div class="canvas-wrap">
+            <canvas id="trafficCanvas" aria-label="Traffic map visualization"></canvas>
+          </div>
+        </section>
+
+        <aside class="panel ai-panel">
+          <header class="panel-header">
+            <h2>Control Center</h2>
+          </header>
+          <div class="ai-content">
+            <section class="ai-card">
+              <h3>System Status</h3>
+              <div id="currentState" class="compact-grid"></div>
+            </section>
+            <section class="ai-card">
+              <h3>Signal State</h3>
+              <div id="signalState"></div>
+            </section>
+            <section class="ai-card">
+              <h3>AI Command</h3>
+              <div id="activeCommands" class="single-block"></div>
+            </section>
+            <section class="ai-card">
+              <h3>Emergency</h3>
+              <div id="priorityLogic"></div>
+            </section>
+            <section class="ai-card">
+              <h3>Live Traffic Pulse</h3>
+              <p class="subtext">Live Load Index (0-100) from congestion, wait, queue size, and corridor imbalance.</p>
+              <div id="livePulseMeta" class="pulse-meta"></div>
+              <div id="liveChart" class="live-chart" aria-label="Live traffic activity chart"></div>
+              <div class="pulse-legend">
+                <span><i class="dot dot-low"></i>Low (&lt;40)</span>
+                <span><i class="dot dot-mid"></i>Moderate (40-74)</span>
+                <span><i class="dot dot-high"></i>High (75+)</span>
+              </div>
+            </section>
+            <section class="ai-card">
+              <h3>Traffic Mode Control</h3>
+              <div class="traffic-mode-buttons" aria-label="Traffic mode controls">
+                <button id="trafficLowBtn" class="btn btn-mode" type="button">Low</button>
+                <button id="trafficMediumBtn" class="btn btn-mode" type="button">Medium</button>
+                <button id="trafficHighBtn" class="btn btn-mode" type="button">High</button>
+              </div>
+              <p id="trafficModeStatus" class="label" style="margin-top:8px"></p>
+            </section>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>
