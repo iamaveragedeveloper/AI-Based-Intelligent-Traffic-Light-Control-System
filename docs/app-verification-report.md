@@ -1,4 +1,69 @@
 ### Task
+Make the app Vercel-ready for deployment and ensure production build serves the Python AI model correctly.
+
+### Environment / run mode
+- Date/time: 2026-05-08 14:35 (UTC+05:30)
+- OS: Windows 10
+- Runtime: Node.js + Vite v5.4.21
+- Verification mode: production build + Vite preview (`http://127.0.0.1:4173/`)
+
+### Commands executed
+- `npm run build`
+- `npm run lint` (script missing)
+- `npm run typecheck` (script missing)
+- `npm test` (script missing)
+- `npm run preview -- --host=127.0.0.1 --port=4173`
+- `curl -I http://127.0.0.1:4173/`
+- `curl -I http://127.0.0.1:4173/ai-model/traffic_decision_model.py`
+
+### Changed files
+- `vercel.json`
+- `public/ai-model/traffic_decision_model.py`
+- `docs/app-verification-report.md`
+
+### Routes and pages checked
+- `/` (served successfully from preview)
+- `/ai-model/traffic_decision_model.py` (served as static production asset)
+
+### Interactions tested
+- Deployment smoke checks:
+  - Verified app root returns `200` in preview mode.
+  - Verified Python model endpoint returns `200` and non-zero content length in preview mode.
+  - Confirmed SPA fallback configuration is present for deep-link routing on Vercel.
+
+### Logs reviewed
+- Build logs from `vite build`: successful output into `dist/`.
+- Preview server logs: started successfully on `127.0.0.1:4173`.
+- HTTP smoke logs via `curl`: both key paths reachable.
+
+### Errors found
+- Production deployment blocker before fix:
+  - `/ai-model/traffic_decision_model.py` returned `index.html` in preview because the file was not included in `dist/`.
+- Tooling limitation:
+  - `lint`, `typecheck`, and `test` scripts are missing from `package.json`.
+
+### Fixes applied
+- Added `vercel.json`:
+  - explicit Vite build/output settings for Vercel.
+  - filesystem-first routing with SPA fallback to `index.html`.
+- Added `public/ai-model/traffic_decision_model.py` so Vite copies the Python model into production output and Vercel can serve it.
+
+### Re-verification results
+- Rebuilt after fixes: passed.
+- Re-ran preview and HTTP checks:
+  - `/` -> `200 OK`
+  - `/ai-model/traffic_decision_model.py` -> `200 OK` with file payload
+- Lint diagnostics for changed files: none.
+
+### Final status
+Pass. Project is now Vercel-ready for static deployment with SPA fallback and production-accessible Python model asset.
+
+### Remaining issues / blockers
+- Missing npm scripts for `lint`, `typecheck`, and `test` limit automated quality checks.
+
+---
+
+### Task
 Make speed control same size as header buttons and replace native select with a custom dropdown.
 
 ### Environment / run mode
